@@ -25,8 +25,6 @@ elif [ ! -d $work_dis ]; then
   git clone https://github.com/kenzok8/openwrt-packages.git $work_dis/kenzok8
   git clone https://github.com/Lienol/openwrt-package.git $work_dis/lienol
   git clone https://github.com/hyy-666/luci-app-dockerman.git $work_dis/luci-app-dockerman
-  # 输出添加不需要修改的软件成功
-  echo -e "\033[32m Add App Success \033[0m"
 fi
 # 判断application（存放需要修改的创建目录）目录是否存在，不存在就创建
 if [ ! -d $work_dir/application ]; then
@@ -37,8 +35,6 @@ $root_dir/scripts/feeds update -a
 # --------------冲突处理单元--------------
 # 删除lean的argon与要添加的插件相冲突
 rm -rf $root_dir/package/lean/luci-theme-argon
-# 删除lean的aria2与要添加的插件相冲突
-rm -rf $root_dir/feeds/packages/net/aria2
 # ---------------------------------------
 # 清理工作目录
 rm -rf $work_dir/application/*
