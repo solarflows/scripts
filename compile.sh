@@ -1,5 +1,8 @@
 #!/bin/bash
-s_dir=$(cd "$(dirname "$0")";pwd)
+s_dir=$(
+  cd "$(dirname "$0")"
+  pwd
+)
 root_dir=$(pwd)
 M_conf=$(pwd)/.config
 M_seed=$(pwd)/bin/targets/x86/64/config.seed
