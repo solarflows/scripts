@@ -1,9 +1,6 @@
 #!/bin/bash
 RUNTIMES=0
-s_dir=$(
-  cd "$(dirname "$0")" || exit
-  pwd
-)
+s_dir=$(cd "$(dirname "$0")";pwd)
 echo -e "\033[32m Strat $0 \033[0m"
 if [ -f "$s_dir"/tmp/feeds.conf.default ]; then
   RUNTIMES=1

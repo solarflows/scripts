@@ -1,10 +1,7 @@
 #!/bin/bash
 # 定义全局变量
 # $s_dir 脚本所在目录
-s_dir=$(
-  cd "$(dirname "$0")"
-  pwd
-)
+s_dir=$(cd "$(dirname "$0")";pwd)
 # $root_dir 脚本执行目录
 root_dir=$(pwd)
 # $work_dir 工作目录
