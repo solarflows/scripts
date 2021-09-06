@@ -48,7 +48,7 @@ cp -r $work_dis/kenzok8/luci-app-openclash $work_dir/application
 cp -r $work_dis/kenzok8/luci-app-smartdns $work_dir/application
 cp -r $work_dis/luci-app-dockerman/applications/luci-app-dockerman $work_dir/application
 cp -r $work_dis/kenzok8/adguardhome $work_dir/dependency
-cp -r $work_dis/kenzok8/smartdns $work_dir/smartdns
+cp -r $work_dis/kenzok8/smartdns $work_dir/dependency
 # 检索安装所有已有插件到编译环境
 $root_dir/scripts/feeds install -a
 # 上一条指令执行正常则输出以下语句
