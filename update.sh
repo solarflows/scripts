@@ -30,6 +30,12 @@ fi
 if [ ! -d $work_dir/application ]; then
   mkdir -vp $work_dir/application
 fi
+
+# 判断dependency（存放需要修改的创建目录）目录是否存在，不存在就创建
+if [ ! -d $work_dir/dependency]; then
+  mkdir -vp $work_dir/dependency
+fi
+
 # 执行openwrt固件自带的升级脚本
 $root_dir/scripts/feeds update -a
 # --------------冲突处理单元--------------
