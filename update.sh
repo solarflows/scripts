@@ -32,7 +32,7 @@ if [ ! -d $work_dir/application ]; then
 fi
 
 # 判断dependency（存放需要修改的创建目录）目录是否存在，不存在就创建
-if [ ! -d $work_dir/dependency]; then
+if [ ! -d $work_dir/dependency ]; then
   mkdir -vp $work_dir/dependency
 fi
 
