@@ -48,11 +48,13 @@ rm -rf $work_dir/application/*
 echo -e "\033[32m Clean Up ! \033[0m"
 # 复制修改完的插件到工作目录
 cp -r $work_dis/lienol/luci-app-filebrowser $work_dir/application
+cp -r $work_dis/kenzok8/luci-app-aliyundrive-webdav $work_dir/application
 cp -r $work_dis/kenzok8/luci-app-adguardhome $work_dir/application
 cp -r $work_dis/kenzok8/luci-app-clash $work_dir/application
 cp -r $work_dis/kenzok8/luci-app-openclash $work_dir/application
 cp -r $work_dis/kenzok8/luci-app-smartdns $work_dir/application
 cp -r $work_dis/luci-app-dockerman/applications/luci-app-dockerman $work_dir/application
+cp -r $work_dis/kenzok8/aliyundrive-webdav $work_dir/dependency
 cp -r $work_dis/kenzok8/adguardhome $work_dir/dependency
 cp -r $work_dis/kenzok8/smartdns $work_dir/dependency
 # 检索安装所有已有插件到编译环境
