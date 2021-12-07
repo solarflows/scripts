@@ -40,7 +40,7 @@ fi
 $root_dir/scripts/feeds update -a
 # --------------冲突处理单元--------------
 # 删除lean的argon与要添加的插件相冲突
-rm -rf $root_dir/package/lean/luci-theme-argon
+# rm -rf $root_dir/package/lean/luci-theme-argon
 # ---------------------------------------
 # 清理工作目录
 rm -rf $work_dir/application/*
