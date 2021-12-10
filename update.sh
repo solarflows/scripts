@@ -52,6 +52,7 @@ cp -r $work_dis/lienol/luci-app-syncthing $work_dir/application
 cp -r $work_dis/kenzok8/luci-app-adguardhome $work_dir/application
 cp -r $work_dis/kenzok8/luci-app-openclash $work_dir/application
 cp -r $work_dis/kenzok8/luci-app-smartdns $work_dir/application
+cp -r $work_dis/kenzok8/luci-app-eqos $work_dir/application
 cp -r $work_dis/kenzok8/adguardhome $work_dir/dependency
 cp -r $work_dis/kenzok8/smartdns $work_dir/dependency
 # 检索安装所有已有插件到编译环境
