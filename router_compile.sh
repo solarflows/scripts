@@ -4,8 +4,6 @@
 scripts_dir=$(cd "$(dirname "$0")";pwd)
 # $lede_dir lede所在目录
 lede_dir=$(pwd)
-# 运行start.sh脚本
-${scripts_dir}/start.sh
 # 复制配置文件
 cp ${scripts_dir}/Firmware/Router.buildinfo ${lede_dir}/.config
 # 补齐配置文件
@@ -14,7 +12,10 @@ make defconfig
 ${scripts_dir}/compile.sh
 # 移动固件文件
 rm -rf $(find ${lede_dir}/bin/targets/ -type d -name "packages")
+mkdir -vp ${scripts_dir}/Firmware/Router/firmware/
 cp -rf $(find ${lede_dir}/bin/targets/ -type f) ${scripts_dir}/Firmware/Router/firmware/
+mkdir -vp ${scripts_dir}/Firmware/Router/package/
 cp -rf $(find ${lede_dir}/bin/packages/ -type f -name "*.ipk") ${scripts_dir}/Firmware/Router/package/
+mkdir -vp ${scripts_dir}/Firmware/Router/buildinfo/
 cp -rf $(find ${lede_dir}/bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ${scripts_dir}/Firmware/Router/buildinfo/
 
