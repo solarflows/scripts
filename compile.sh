@@ -1,39 +1,43 @@
 #!/bin/bash
-s_dir=$(
-  cd "$(dirname "$0")"
-  pwd
-)
-root_dir=$(pwd)
-M_conf=$(pwd)/.config
-M_seed=$(pwd)/bin/targets/x86/64/config.seed
-start=$(date +%s) # %s可以计算的是1970年以来的秒数
+# 定义全局变量
+# $scripts_dir 脚本所在目录
+scripts_dir=$(cd "$(dirname "$0")";pwd)
+# $lede_dir lede所在目录
+lede_dir=$(pwd)
+# $conf 配置文件绝对地址
+conf=$(pwd)/.config
+# 配置文件大小
+conf_size=`ls - l ${conf} | awk '{pring $5}'`
+# 配置文件大小
+std_size=$((1024*100))
+# 编译线程数
+threads=$(($(nproc) + 1))
+# 开始时间
+startTime=`date +"%Y-%m-%d %H:%M:%S"`
+# 脚本开始，设置输出文字的颜色
+# \033[32m 绿色
 echo -e "\033[32m Strat $0 ! \033[0m"
-if [[ -f $M_conf ]] && [[ -f $M_seed ]]; then
-  if [ "$M_conf" -ot "$M_seed" ]; then
-    echo -e "\033[32m Config File Exist ,But Out of Day ! \033[0m"
-    echo -e "\033[32m Update Config !\033[0m"
-    cat $M_seed > $M_conf
-    make defconfig
-  else
-    echo -e "\033[32m You Have Update Config By Yourself ! \033[0m"
-    echo -e "\033[32m Compile Wirh New Config ! \033[0m"
-  fi
-elif [[ -f $M_conf ]] && [[ ! -f $M_seed ]]; then
-  echo -e "\033[32m Config File Exist ! \033[0m"
-  echo -e "\033[32m Start First Compile ! \033[0m"
-elif [[ ! -f $M_conf ]] && [[ -f $M_seed ]]; then
-  cat $M_seed > $M_conf
-  echo -e "\033[32m Copy Exist Config \033[0m"
-  make defconfig
-elif [[ ! -f $M_conf ]] && [[ ! -f $M_seed ]]; then
-  echo -e "\033[32m Start Defconfig \033[0m"
+# 判断配置文件文件大小与存在性
+if [!-f ${conf}] || [${conf_size} gt std_size=$((1024*100))];then
   make defconfig
 fi
+# 执行下载依赖包
 echo -e "\033[32m Download Files \033[0m"
-make download -j8
+make download -j$threads
+# 删除已存在的固件
+if [-d ${lede_dir}/bin];then
+  rm -rf ${lede_dir}/bin
+fi
+# 开始编译固件（包含简单的异常处理）
 echo -e "\033[32m Start Compile Firmware \033[0m"
-sleep 2
-make -j$(($(nproc) + 1)) || make -j1 V=s || echo -e "\033[31m Compile Fail !\033[0m"
-end=$(date +%s)
-time=$(echo spend $start $end | awk '{print $2-$1} seconds')
-echo -e "\033[32m $0 done ! Work Time $time \033[0m"
+make -j${threads} || rm -rf ${lede_dir}/build_dir/target-x86_64_musl/linux-* && make -j1 V=s
+# 结束时间
+endTime=`date +"%Y-%m-%d %H:%M:%S"`
+st=`date -d  "${startTime}" +%s`
+et=`date -d  "${endTime}" +%s`
+sumTime=$((${et}-${st}))
+if [!-f ${lede_dir}/bin/targets/**/**/sha256sums];then
+  echo -e "\033[31m ${startTime} ---> ${endTime},Compile Fail ! Total time is : ${sumTime} second. \033[0m"
+  exit 1
+fi
+echo -e "\033[32m ${startTime} ---> ${endTime} $0 done ! Total time is : ${sumTime} second. \033[0m"
