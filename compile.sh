@@ -18,14 +18,14 @@ startTime=`date +"%Y-%m-%d %H:%M:%S"`
 # \033[32m 绿色
 echo -e "\033[32m Strat $0 ! \033[0m"
 # 判断配置文件文件大小与存在性
-if [!-f ${conf}] || [${conf_size} gt std_size=$((1024*100))];then
+if [ !-f ${conf}] || [${conf_size} gt std_size=$((1024*100)) ];then
   make defconfig
 fi
 # 执行下载依赖包
 echo -e "\033[32m Download Files \033[0m"
 make download -j$threads
 # 删除已存在的固件
-if [-d ${lede_dir}/bin];then
+if [ -d ${lede_dir}/bin ];then
   rm -rf ${lede_dir}/bin
 fi
 # 开始编译固件（包含简单的异常处理）
@@ -36,7 +36,7 @@ endTime=`date +"%Y-%m-%d %H:%M:%S"`
 st=`date -d  "${startTime}" +%s`
 et=`date -d  "${endTime}" +%s`
 sumTime=$((${et}-${st}))
-if [!-f ${lede_dir}/bin/targets/**/**/sha256sums];then
+if [ !-f ${lede_dir}/bin/targets/**/**/sha256sums ];then
   echo -e "\033[31m ${startTime} ---> ${endTime},Compile Fail ! Total time is : ${sumTime} second. \033[0m"
   exit 1
 fi
