@@ -13,9 +13,8 @@ ${scripts_dir}/compile.sh
 # 时间
 date =`date +"%Y-%m-%d %H:%M:%S"`
 rm -rf $(find ${lede_dir}/bin/targets/ -type d -name "packages")
-mkdir -vp ${firmware_dir}/{firmware,package,buildinfo}/
+mkdir -vp ${firmware_dir}/{firmware,buildinfo}/
 # 移动固件文件
 mv -rf $(find ${lede_dir}/bin/targets/ -type f) ${firmware_dir}/firmware/
-mv -rf $(find ${lede_dir}/bin/packages/ -type f -name "*.ipk") ${firmware_dir}/package/
 mv -rf $(find ${lede_dir}/bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ${firmware_dir}/buildinfo/
-
+tree ${firmware_dir}
