@@ -1,20 +1,20 @@
 #!/bin/bash
-# 定义全局变量
-# $scripts_dir 脚本所在目录
+# 脚本所在目录
 scripts_dir = $(cd "$(dirname "$0")";pwd)
-# $lede_dir lede所在目录
+# lede所在目录
 lede_dir = $(pwd)
-# 时间
-date =`date +"%Y-%m-%d %H:%M:%S"`
-# 固件输出目录
-firmware_dir = ${scripts_dir}/Firmware_${date}/Nas
 # 复制配置文件
 cp ${scripts_dir}/conf/Nas.buildinfo ${lede_dir}/.config
 # 开始编译
 ${scripts_dir}/compile.sh
+# 时间
+date =$(`date +"%Y-%m-%d %H:%M:%S"`)
+# 整理文件
 rm -rf $(find ${lede_dir}/bin/targets/ -type d -name "packages")
-mkdir -vp ${firmware_dir}/{firmware,buildinfo}/
+# 创建目录
+mkdir -vp ${lede_dir}/Firmware/${date}/Nas/{firmware,buildinfo}/
 # 移动固件文件
-mv -rf $(find ${lede_dir}/bin/targets/ -type f) ${firmware_dir}/firmware/
-mv -rf $(find ${lede_dir}/bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ${firmware_dir}/buildinfo/
-tree ${firmware_dir}
+mv -f $(find ${lede_dir}/bin/targets/ -type f) ${lede_dir}/Firmware/${date}/Nas/firmware/
+mv -f $(find ${lede_dir}/bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ${lede_dir}/Firmware/${date}/Nas/buildinfo/
+# 展示目录
+tree ${lede_dir}/Firmware/${date}/Nas
