@@ -7,7 +7,7 @@ lede_dir=$(pwd)
 # $conf 配置文件绝对地址
 conf=$(pwd)/.config
 # 配置文件大小
-conf_size=`ls - l $conf | awk 'pring $5'`
+conf_size=`ls -l $conf | awk '{print $5}'`
 # 配置文件大小
 std_size=$((1024*100))
 # 编译线程数
