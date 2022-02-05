@@ -9,18 +9,19 @@ lede_dir=$(pwd)
 echo -e "\033[32m Strat $0 \033[0m"
 # 更新本身
 echo -e "\033[31m Update scripts file！ \033[0m"
-cd ${scripts_dir}
+cd $scripts_dir
 git pull
 # 更新lede仓库
 echo -e "\033[31m Update root file！ \033[0m"
-cd ${lede_dir}
+cd $lede_dir
 git pull
 # 执行openwrt固件自带的升级脚本
 $(pwd)/scripts/feeds update -a
 # 检索安装所有已有插件到编译环境
 $(pwd)/scripts/feeds install -a
 # 上一条指令执行正常则输出以下语句
-if [ $? ]; then
+if [ $? ]
+then
   echo -e "\033[32m Install Feeds Well \033[0m"
 else
   # 异常输出
