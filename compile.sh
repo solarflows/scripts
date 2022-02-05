@@ -32,7 +32,6 @@ if [ -e $lede_dir/bin ]
 then
   echo -e "\033[32m firmware exits detele it ! \033[0m"
   rm -rf $lede_dir/bin
-  rm -rf $lede_dir/build_dir/target-*/linux-*
 fi
 # 开始编译固件（包含简单的异常处理）
 echo -e "\033[32m Start Compile Firmware \033[0m"
@@ -40,7 +39,7 @@ make -j$threads || make -j1
 if [ ! -e $lede_dir/bin/targets/*/*/sha256sums ]
 then
   rm -rf $lede_dir/build_dir/target-*/linux-*
-  make -j1 V=s
+  make -j$threads || make -j1
   # 结束时间
   endTime=`date +"%Y-%m-%d %H:%M:%S"`
   st=`date -d  "$startTime" +%s`
@@ -52,5 +51,5 @@ then
     echo -e "\033[31m Compile Fail ! Total time is : $sumTime second. \033[0m"
     exit 1
   fi
-  echo -e "\033[32m Work done ! Total time is : $sumTime second. \033[0m"
 fi
+echo -e "\033[32m Work done ! Total time is : $sumTime second. \033[0m"
