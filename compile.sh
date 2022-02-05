@@ -35,11 +35,11 @@ then
 fi
 # 开始编译固件（包含简单的异常处理）
 echo -e "\033[32m Start Compile Firmware \033[0m"
-make -j$threads || make -j1
-if [ ! -e $lede_dir/bin/targets/*/*/sha256sums ]
+make -j$threads
+if [ ! -e $lede_dir/bin/targets/*/*/sha256sums && ! -e $lede_dir/bin/targets/*/*/*.gz ]
 then
   rm -rf $lede_dir/build_dir/target-*/linux-*
-  make -j$threads || make -j1
+  make -j$threads || make -j1 V=s
   # 结束时间
   endTime=`date +"%Y-%m-%d %H:%M:%S"`
   st=`date -d  "$startTime" +%s`
