@@ -18,7 +18,7 @@ startTime=`date +"%Y-%m-%d %H:%M:%S"`
 # \033[32m 绿色
 echo -e "\033[32m Strat $0 ! \033[0m"
 # 判断配置文件文件大小与存在性
-if [ ! -e $conf ] || [ test $conf_size le $std_size ]
+if [ ! -e $conf ] || [ test $conf_size -le $std_size ]
 then
   rm -rf $lede_dir/tmp
   make defconfig
