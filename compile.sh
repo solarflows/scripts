@@ -37,7 +37,7 @@ fi
 # 开始编译固件（包含简单的异常处理）
 echo -e "\033[32m Start Compile Firmware \033[0m"
 make -j$threads || make -j1
-if [ !-e $lede_dir/bin/targets/*/*/sha256sums ]
+if [ ! -e $lede_dir/bin/targets/*/*/sha256sums ]
 then
   rm -rf $lede_dir/build_dir/target-*/linux-*
   make -j1 V=s
