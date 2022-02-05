@@ -20,6 +20,7 @@ echo -e "\033[32m Strat $0 ! \033[0m"
 # 判断配置文件文件大小与存在性
 if [ ! -e $conf ] || test $conf_size -le $std_size
 then
+  echo '\033[32m conf file < std size start defconfig \033[0m'
   rm -rf $lede_dir/tmp
   make defconfig
 fi
@@ -29,12 +30,13 @@ make download -j$threads
 # 删除已编译的文件
 if [ -e $lede_dir/bin ]
 then
+  echo '\033[32m firmware exits detele it ! \033[0m'
   rm -rf $lede_dir/bin
-  rm -rf $lede_dir/build_dir/target-**/linux-*
+  rm -rf $lede_dir/build_dir/target-*/linux-*
 fi
 # 开始编译固件（包含简单的异常处理）
 echo -e "\033[32m Start Compile Firmware \033[0m"
-make -j$threads || rm -rf $lede_dir/build_dir/target-x86_64_musl/linux-* && make -j1 V=s
+make -j$threads || rm -rf $lede_dir/build_dir/target-*/linux-* && make -j1 V=s
 # 结束时间
 endTime=`date +"%Y-%m-%d %H:%M:%S"`
 st=`date -d  "$startTime" +%s`
