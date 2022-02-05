@@ -7,7 +7,7 @@ lede_dir=$(pwd)
 cp $scripts_dir/conf/Nas.buildinfo $lede_dir/.config
 # 开始编译
 $scripts_dir/compile.sh
-if [ ! -e $lede_dir/bin/targets/**/**/sha256sums ]
+if [ -e $lede_dir/bin/targets/**/**/sha256sums ]
 then
     # 时间
     date=$(date +"%Y-%m-%d_%H:%M:%S")
