@@ -14,10 +14,10 @@ then
     # 整理文件
     rm -rf $(find $lede_dir/bin/targets/ -type d -name "packages")
     # 创建目录
-    mkdir -vp $lede_dir/Firmware/Router/$(date)
+    mkdir -vp $lede_dir/Firmware/Router/$date
     # 移动固件文件
     echo '\033[32m moving firmware file \033[0m'
-    mv -f $(find $lede_dir/bin/targets/ -type f -name "*.buildinfo" -o -name "*.gz" -o -name "*.img") $lede_dir/Firmware/Router/$(date)/
+    mv -f $(find $lede_dir/bin/targets/ -type f -name "*.buildinfo" -o -name "*.gz" -o -name "*.img") $lede_dir/Firmware/Router/$date/
     # 展示目录
-    tree $lede_dir/Firmware/Router/$(date)
+    tree $lede_dir/Firmware/Router/$date
 fi
