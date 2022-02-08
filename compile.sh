@@ -42,13 +42,13 @@ then
   make -j$threads || make -j1 V=s
   if [ ! -e $lede_dir/bin/targets/**/**/sha256sums ]
   then
-    echo -e "\033[31m Compile Fail !"
+    echo -e "\033[31m Compile Fail ! \033[0m"
     exit 1
   else
-    echo -e "\033[31m Work done !"
+    echo -e "\033[31m Work done ! \033[0m"
   fi
 else
-  echo -e "\033[31m Work done !"
+  echo -e "\033[31m Work done ! \033[0m"
 fi
 # 结束时间
 endTime=`date +"%Y-%m-%d %H:%M:%S"`
