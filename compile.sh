@@ -55,5 +55,5 @@ endTime=`date +"%Y-%m-%d %H:%M:%S"`
 st=`date -d  "$startTime" +%s`
 et=`date -d  "$endTime" +%s`
 sumTime=$(($et-$st))
-echo -e "\033[31m $startTime ---> $endTime,\033[0m"
+echo -e "\033[31m $startTime ---> $endTime \033[0m"
 echo -e "\033[32m Total time is : $sumTime second. \033[0m"
