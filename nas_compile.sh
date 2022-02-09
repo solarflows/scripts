@@ -17,7 +17,7 @@ then
     mkdir -vp $lede_dir/Firmware/Nas/$date
     # 移动固件文件
     echo "\033[32m moving firmware file \033[0m"
-    mv -f $(find $lede_dir/bin/targets/ -type f -name "*.buildinfo" -o -name "sha256sums" -o -name "*.gz" -name "*.img" ! -name "*rootfs*") $lede_dir/Firmware/Nas/$date/
+    mv -f $(find $lede_dir/bin/targets/ -type f -name "*.buildinfo" -o -name "sha256sums" -o -name "*.gz" ! -name "*rootfs*" -o -name "*.img" ! -name "*rootfs*") $lede_dir/Firmware/Nas/$date/
     # 展示目录
     tree $lede_dir/Firmware/Nas/$date
 fi
