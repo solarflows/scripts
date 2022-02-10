@@ -1,0 +1,3 @@
+CONFIG_TARGET_mvebu=y
+CONFIG_TARGET_mvebu_cortexa53=y
+CONFIG_TARGET_mvebu_cortexa53_DEVICE_catdrive_c1=y
