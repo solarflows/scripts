@@ -9,7 +9,7 @@ conf=$(pwd)/.config
 # 配置文件大小
 conf_size=`ls -l $conf | awk '{print $5}'`
 # 配置文件大小
-std_size=$((1024*100))
+std_size=$((1024*30))
 # 编译线程数
 threads=$(($(nproc) + 1))
 # 开始时间
