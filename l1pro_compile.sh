@@ -17,7 +17,7 @@ then
     mkdir -vp $lede_dir/Firmware/L1Pro/$date
     # 移动固件文件
     echo -e "\033[32m moving firmware file \033[0m"
-    mv -f $(find $lede_dir/bin/targets/ -type f -name "*.buildinfo" -o -name "sha256sums" -o -name "*.gz" ! -name "*rootfs*" -o -name "*.img" ! -name "*rootfs*") ~/Firmware/L1Pro/$date/
+    mv -f $(find $lede_dir/bin/targets/ -type f -name "*.buildinfo" -o -name "sha256sums" -o -name "*.gz") ~/Firmware/L1Pro/$date/
     # 展示目录
     tree $lede_dir/Firmware/L1Pro/$date
 fi
