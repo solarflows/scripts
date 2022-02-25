@@ -14,10 +14,10 @@ then
     # 整理文件
     rm -rf $(find $lede_dir/bin/targets/ -type d -name "packages")
     # 创建目录
-    mkdir -vp $lede_dir/Firmware/L1Pro/$date
+    mkdir -vp ~/Firmware/L1Pro/$date
     # 移动固件文件
     echo -e "\033[32m moving firmware file \033[0m"
     mv -f $(find $lede_dir/bin/targets/ -type f -name "*.buildinfo" -o -name "sha256sums" -o -name "*.gz") ~/Firmware/L1Pro/$date/
     # 展示目录
-    tree $lede_dir/Firmware/L1Pro/$date
+    tree ~/Firmware/L1Pro/$date
 fi
