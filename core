@@ -11,8 +11,6 @@ SCRIPT_DIR=$(cd "$(dirname "$0")";pwd)
 LEDE_DIR=$(pwd)
 # ${CONF} 配置文件绝对地址
 CONF=$(pwd)/.config
-# 配置文件大小
-CONF_SIZE=`ls -l ${CONF} | awk '{print $5}'`
 # 标准配置文件大小
 STD_SIZE=$((1024*30))
 # 编译线程数
@@ -76,6 +74,8 @@ COMFILE_FIRMWARE() {
     if [ $# != 0 ]; then
         cp ${SCRIPT_DIR}/conf/$1 ${LEDE_DIR}/.config
     fi
+    # 配置文件大小
+    CONF_SIZE=`ls -l ${CONF} | awk '{print $5}'`
     # 判断配置文件文件大小与存在性
     if [ ! -e ${CONF} ] || test ${CONF_SIZE} -le ${STD_SIZE}; then
         echo && echo -e "${INFO} conf file < std size start defconfig"
