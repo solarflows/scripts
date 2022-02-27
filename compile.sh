@@ -15,7 +15,7 @@ if [ $# == 0 ]; then
     COMFILE_FIRMWARE
     exit 0
 fi
-if [$1 == 'all']; then
+if [ $1 == 'all' ]; then
     for i in `ls ${SCRIPT_DIR}/conf`; do
         echo && echo -e "${INFO} Compile $i !"
         COMFILE_FIRMWARE "$i"
