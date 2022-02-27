@@ -51,6 +51,7 @@ CAL_TIME() {
     echo && echo -e "${INFO} ${STARTTIME} ---> ${ENDTIME}"
     echo && echo -e "${INFO} Total time is : $sumTime second."
     sleep 2
+    ${STARTTIME} = ${ENDTIME}
 }
 
 UPDATE_LEDE() {
