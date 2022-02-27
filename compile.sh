@@ -5,19 +5,19 @@ CHECK_CORE_FILE() {
     if [[ -f "${CORE_FILE}" ]]; then
         . "${CORE_FILE}"
     else
-        echo "!!! core file does not exist !!!"
+		echo "!!! core file does not exist !!!"
         exit 1
     fi
 }
 
 CHECK_CORE_FILE
 if [ $# == 0 ]; then
-  COMFILE_FIRMWARE
-  exit 0
+    COMFILE_FIRMWARE
+    exit 0
 fi
 for i in "$@"; do
-  echo && echo -e "${INFO} Compile $i !"
-  COMFILE_FIRMWARE "$i"
-  MOVE_FIRMWARE "$i"
+    echo && echo -e "${INFO} Compile $i !"
+    COMFILE_FIRMWARE "$i"
+    MOVE_FIRMWARE "$i"
 done
 exit 0

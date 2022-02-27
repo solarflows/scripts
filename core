@@ -48,8 +48,9 @@ CAL_TIME() {
     et=`date -d  "${ENDTIME}" +%s`
     sumTime=$(($et-$st))
     # 输出脚本运行时间
-    echo && echo -e "${ERROR} ${STARTTIME}---> $ENDTIME"
+    echo && echo -e "${INFO} ${STARTTIME} ---> $ENDTIME"
     echo && echo -e "${INFO} Total time is : $sumTime second."
+    sleep 2
 }
 
 UPDATE_LEDE() {

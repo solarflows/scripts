@@ -1,4 +1,5 @@
 #!/bin/bash
+SCRIPT_DIR=$(cd "$(dirname "$0")";pwd)
 
 CHECK_CORE_FILE() {
     CORE_FILE="$(dirname $0)/core"
@@ -10,8 +11,9 @@ CHECK_CORE_FILE() {
     fi
 }
 
+git -C ${SCRIPT_DIR} pull
+
 CHECK_CORE_FILE
-UPDATE_SCRIPS
 UPDATE_LEDE
 UPDATE_FEEDS
 exit 0
