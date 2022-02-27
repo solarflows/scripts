@@ -1,0 +1,122 @@
+#
+# https://github.com/hyy/scripts.git
+# File name：core
+# Version: 0.1
+#
+
+
+# 脚本所在目录
+SCRIPT_DIR=$(cd "$(dirname "$0")";pwd)
+# lede所在目录
+LEDE_DIR=$(pwd)
+# ${CONF} 配置文件绝对地址
+CONF=$(pwd)/.config
+# 配置文件大小
+CONF_SIZE=`ls -l ${CONF} | awk '{print $5}'`
+# 标准配置文件大小
+STD_SIZE=$((1024*30))
+# 编译线程数
+THREADS=$(($(nproc) + 1))
+# 开始时间
+STARTTIME=`date +"%Y-%m-%d %H:%M:%S"`
+# 字体颜色设置
+RED_FONT_PREFIX="\033[31m"
+LIGHT_GREEN_FONT_PREFIX="\033[1;32m"
+YELLOW_FONT_PREFIX="\033[1;33m"
+LIGHT_PURPLE_FONT_PREFIX="\033[1;35m"
+FONT_COLOR_SUFFIX="\033[0m"
+# 设置输出字体颜色
+INFO="[${LIGHT_GREEN_FONT_PREFIX}INFO${FONT_COLOR_SUFFIX}]"
+ERROR="[${RED_FONT_PREFIX}ERROR !!! ${FONT_COLOR_SUFFIX}]"
+WARRING="[${YELLOW_FONT_PREFIX}WARRING${FONT_COLOR_SUFFIX}]"
+
+CHECK_STATUS() {
+    # 判断运行成功与否
+    if [ $? ]; then
+        echo && echo -e "${INFO} Done !"
+    else
+    # 异常输出
+        echo && echo -e "${ERROR} Fail !"
+        exit 1
+    fi
+}
+
+CAL_TIME() {
+    # 结束时间
+    ENDTIME=`date +"%Y-%m-%d %H:%M:%S"`
+    st=`date -d  "${STARTTIME}" +%s`
+    et=`date -d  "${ENDTIME}" +%s`
+    sumTime=$(($et-$st))
+    # 输出脚本运行时间
+    echo && echo -e "${ERROR} ${STARTTIME}---> $ENDTIME"
+    echo && echo -e "${INFO} Total time is : $sumTime second."
+}
+
+UPDATE_LEDE() {
+    cd ${LEDE_DIR}
+    echo && echo -e "${INFO} Start Update lede"
+    git pull
+    CHECK_STATUS
+    CAL_TIME
+}
+
+UPDATE_FEEDS() {
+    # 执行openwrt固件自带的升级脚本
+    $(pwd)/scripts/feeds update -a
+    # 检索安装所有已有插件到编译环境
+    $(pwd)/scripts/feeds install -a
+    CHECK_STATUS
+    CAL_TIME
+}
+
+COMFILE_FIRMWARE() {
+    cd ${LEDE_DIR}
+    if [ $# != 0 ]; then
+        cp ${SCRIPT_DIR}/conf/$1.buildinfo ${LEDE_DIR}/.config
+    fi
+    # 判断配置文件文件大小与存在性
+    if [ ! -e ${CONF} ] || test ${CONF}_size -le $std_size; then
+        echo && echo -e "${INFO} conf file < std size start defconfig"
+        rm -rf ${LEDE_DIR}/tmp
+        make defconfig
+    fi
+    # 执行下载依赖包
+    echo && echo -e "${INFO} Download Files"
+    make download -j${THREADS}
+    if [ -e ${LEDE_DIR}/bin ]; then
+        # 删除已编译的文件
+        echo && echo -e "${INFO} firmware exits detele it !"
+        rm -rf ${LEDE_DIR}/bin
+        make clean
+    fi
+    # 开始编译固件（包含简单的异常处理）
+    echo && echo -e "${INFO} Start Compile Firmware"
+    make -j${THREADS}
+    if [ ! -e ${LEDE_DIR}/bin/targets/**/**/sha256sums ]; then
+        make clean
+        make -j${THREADS} || make -j1 V=99
+        if [ ! -e ${LEDE_DIR}/bin/targets/**/**/sha256sums ]; then
+            echo && echo -e "${ERROR} Compile Fail !"
+            exit 1
+        fi
+    fi
+    echo && echo -e "${INFO} Work done !"
+    CAL_TIME
+}
+
+MOVE_FIRMWARE() {
+    OUTPUT_DIR=~/Firmware/$1
+    if [ -e ${LEDE_DIR}/bin/targets/**/**/sha256sums ]; then
+        # 时间
+        date=$(date +"%Y-%m-%d_%H:%M:%S")
+        # 整理文件
+        rm -rf $(find ${LEDE_DIR}/bin/targets/ -type d -name "packages")
+        # 创建目录
+        mkdir -vp ${OUTPUT_DIR}
+        # 移动固件文件
+        mv -f $(find ${LEDE_DIR}/bin/targets/ -type f -name "*.buildinfo" -o -name "sha256sums" -o -name "*.gz" -o -name "*.img") ${OUTPUT_DIR}/
+        # 展示目录
+        tree ${OUTPUT_DIR}
+    fi
+
+}
