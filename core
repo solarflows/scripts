@@ -81,7 +81,7 @@ COMFILE_FIRMWARE() {
         echo && echo -e "${INFO} conf file < std size start defconfig"
         rm -rf ${LEDE_DIR}/tmp
         make defconfig
-    elif test test ${CONF_SIZE} -ge ${STD_SIZE}; then
+    elif test ${CONF_SIZE} -ge ${STD_SIZE}; then
         echo && echo -e "${INFO} conf file > std size start defconfig"
     fi
     # 执行下载依赖包
