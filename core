@@ -48,7 +48,7 @@ CAL_TIME() {
     et=`date -d  "${ENDTIME}" +%s`
     sumTime=$(($et-$st))
     # 输出脚本运行时间
-    echo && echo -e "${INFO} ${STARTTIME} ---> $ENDTIME"
+    echo && echo -e "${INFO} ${STARTTIME} ---> ${ENDTIME}"
     echo && echo -e "${INFO} Total time is : $sumTime second."
     sleep 2
 }
@@ -73,7 +73,7 @@ UPDATE_FEEDS() {
 COMFILE_FIRMWARE() {
     cd ${LEDE_DIR}
     if [ $# != 0 ]; then
-        cp ${SCRIPT_DIR}/conf/$1.buildinfo ${LEDE_DIR}/.config
+        cp ${SCRIPT_DIR}/conf/$1 ${LEDE_DIR}/.config
     fi
     # 判断配置文件文件大小与存在性
     if [ ! -e ${CONF} ] || test ${CONF}_size -le $std_size; then
