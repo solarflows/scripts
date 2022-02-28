@@ -92,7 +92,6 @@ COMFILE_FIRMWARE() {
         tree ${LEDE_DIR}/bin
         echo && echo -e "${INFO} firmware exits detele it !"
         rm -rf ${LEDE_DIR}/bin
-        make clean
     fi
     # 开始编译固件（包含简单的异常处理）
     echo && echo -e "${INFO} Start Compile Firmware"
