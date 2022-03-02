@@ -109,7 +109,7 @@ COMFILE_FIRMWARE() {
 }
 
 MOVE_FIRMWARE() {
-    OUTPUT_DIR=~/Firmware/$1
+    OUTPUT_DIR=~/Firmware/$1/$(date +"%Y-%m-%d_%H:%M:%S")
     if [ -e ${LEDE_DIR}/bin/targets/**/**/sha256sums ]; then
         # 时间
         date=$(date +"%Y-%m-%d_%H:%M:%S")
