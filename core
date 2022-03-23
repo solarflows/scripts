@@ -89,9 +89,9 @@ COMFILE_FIRMWARE() {
     make download -j${THREADS}
     if [ -e ${LEDE_DIR}/bin ]; then
         # 删除已编译的文件
-        tree ${LEDE_DIR}/bin
+        tree ${LEDE_DIR}/bin/targets/*/*
         echo && echo -e "${INFO} firmware exits detele it !"
-        rm -rf ${LEDE_DIR}/bin
+        rm -rf ${LEDE_DIR}/bin/targets/*/*
     fi
     # 开始编译固件（包含简单的异常处理）
     echo && echo -e "${INFO} Start Compile Firmware"
@@ -114,7 +114,7 @@ MOVE_FIRMWARE() {
         # 时间
         date=$(date +"%Y-%m-%d_%H:%M:%S")
         # 整理文件
-        rm -rf $(find ${LEDE_DIR}/bin/targets/ -type d -name "packages")
+        # rm -rf $(find ${LEDE_DIR}/bin/targets/ -type d -name "packages")
         # 创建目录
         mkdir -vp ${OUTPUT_DIR}
         # 移动固件文件
