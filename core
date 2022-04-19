@@ -72,6 +72,10 @@ UPDATE_FEEDS() {
 COMFILE_FIRMWARE() {
     cd ${LEDE_DIR}
     if [ $# != 0 ]; then
+        if [[ ! -f "${SCRIPT_DIR}/conf/$1" ]]; then
+            echo && echo -e "${ERROR} conf file no exits !"
+            exit 1
+        fi
         cp ${SCRIPT_DIR}/conf/$1 ${LEDE_DIR}/.config
     fi
     # 配置文件大小
