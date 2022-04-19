@@ -14,17 +14,17 @@ CHECK_CORE_FILE
 if [ $# == 0 ]; then
     COMFILE_FIRMWARE
     exit 0
-fi
-if [ $1 == 'all' ]; then
+elif [ $1 == 'all' ]; then
     for i in `ls ${SCRIPT_DIR}/conf`; do
         echo && echo -e "${INFO} Compile $i !"
         COMFILE_FIRMWARE "$i"
         MOVE_FIRMWARE "$i"
     done
+else
+    for i in "$@"; do
+        echo && echo -e "${INFO} Compile $i !"
+        COMFILE_FIRMWARE "$i"
+        MOVE_FIRMWARE "$i"
+    done
 fi
-for i in "$@"; do
-    echo && echo -e "${INFO} Compile $i !"
-    COMFILE_FIRMWARE "$i"
-    MOVE_FIRMWARE "$i"
-done
 exit 0
