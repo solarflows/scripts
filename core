@@ -96,7 +96,12 @@ COMFILE_FIRMWARE() {
         # tree ${LEDE_DIR}/bin/targets/*/*
         # echo && echo -e "${INFO} firmware exits detele it !"
         # rm -rf ${LEDE_DIR}/bin/targets/*/*
-        make clean
+        # Clean linux objects
+        make target/linux/clean -j${THREADS}
+        # Clean package base-files objects
+        make package/base-files/clean -j${THREADS}
+        # Clean luci objects
+        make package/luci/clean -j${THREADS}
     fi
     # 开始编译固件（包含简单的异常处理）
     echo && echo -e "${INFO} Start Compile Firmware"
