@@ -73,7 +73,7 @@ COMFILE_FIRMWARE() {
     cd ${LEDE_DIR}
     if [ $# != 0 ]; then
         if [[ ! -f "${SCRIPT_DIR}/conf/$1" ]]; then
-            echo && echo -e "${ERROR} conf file no exits !"
+            echo && echo -e "${ERROR} $1 conf file no exits !"
             exit 1
         fi
         cp ${SCRIPT_DIR}/conf/$1 ${LEDE_DIR}/.config
@@ -110,7 +110,7 @@ COMFILE_FIRMWARE() {
         make clean
         make -j${THREADS} || make -j1 V=99
         if [ ! -e ${LEDE_DIR}/bin/targets/**/**/sha256sums ]; then
-            echo && echo -e "${ERROR} Compile Fail !"
+            echo && echo -e "${ERROR} Compile $1 Fail !"
             exit 1
         fi
     fi
