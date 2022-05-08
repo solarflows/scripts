@@ -97,17 +97,24 @@ COMFILE_FIRMWARE() {
         # echo && echo -e "${INFO} firmware exits detele it !"
         # rm -rf ${LEDE_DIR}/bin/targets/*/*
         # Clean linux objects
-        make target/linux/clean -j${THREADS}
+        make target/clean -j${THREADS}
         # Clean package base-files objects
-        make package/base-files/clean -j${THREADS}
-        # Clean luci objects
-        make package/luci/clean -j${THREADS}
+        make package/clean -j${THREADS}
     fi
     # 开始编译固件（包含简单的异常处理）
-    echo && echo -e "${INFO} Start Compile Firmware"
-    make -j${THREADS}
+    echo && echo -e "${INFO} Start Compile Firmware With ${THREADS} Threads"
+    echo && echo -e "${INFO} Compile Tools"
+    make tools/compile -j${THREADS} || make tools/compile -j1 V=s
+    make target/compile -j${THREADS} || make target/compile -j1 V=s
+    echo && echo -e "${INFO} Compile Packages"
+    make diffconfig
+    make package/compile -j${THREADS} || make package/compile -j1 V=s
+    make package/index
+    make package/install -j${THREADS} || make package/install -j1 V=s
+    echo && echo -e "${INFO} Compile Target Firmware"
+    make target/install -j${THREADS} || make target/install -j1 V=s
+    make checksum
     if [ ! -e ${LEDE_DIR}/bin/targets/**/**/sha256sums ]; then
-        make clean
         make -j${THREADS} || make -j1 V=99
         if [ ! -e ${LEDE_DIR}/bin/targets/**/**/sha256sums ]; then
             echo && echo -e "${ERROR} Compile $1 Fail !"
@@ -132,5 +139,4 @@ MOVE_FIRMWARE() {
         # 展示目录
         tree ${OUTPUT_DIR}
     fi
-
 }
