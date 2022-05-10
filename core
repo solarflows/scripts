@@ -91,16 +91,16 @@ COMFILE_FIRMWARE() {
     # 执行下载依赖包
     echo && echo -e "${INFO} Download Files"
     make download -j${THREADS}
-    # if [ -e ${LEDE_DIR}/bin ]; then
+    if [ -e ${LEDE_DIR}/bin ]; then
     #     # 删除已编译的文件
     #     # tree ${LEDE_DIR}/bin/targets/*/*
-    #     # echo && echo -e "${INFO} firmware exits detele it !"
-    #     # rm -rf ${LEDE_DIR}/bin/targets/*/*
+        echo && echo -e "${INFO} firmware exits detele it !"
+        rm -rf ${LEDE_DIR}/bin/targets/*/*
     #     # Clean target Firmware
     #     make target/clean -j${THREADS}
     #     # Clean package objects
     #     make package/clean -j${THREADS}
-    # fi
+    fi
     # 开始编译固件（包含简单的异常处理）
     echo && echo -e "${INFO} Start Compile Firmware With ${THREADS} Threads"
     echo && echo -e "${INFO} Compile Tools"
