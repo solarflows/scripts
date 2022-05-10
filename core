@@ -112,8 +112,7 @@ COMFILE_FIRMWARE() {
     make package/index
     make package/install -j${THREADS} || make package/install -j1 V=s
     echo && echo -e "${INFO} Compile Target Firmware"
-    make target/install -j${THREADS} || make target/install -j1 V=s
-    make checksum
+    (make target/install -j${THREADS} && make checksum) || (make target/install -j1 V=s && make checksum)
     if [ ! -e ${LEDE_DIR}/bin/targets/**/**/sha256sums ]; then
         # Clean target Firmware
         make target/clean -j${THREADS}
