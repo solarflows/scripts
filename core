@@ -104,15 +104,18 @@ COMFILE_FIRMWARE() {
     # 开始编译固件（包含简单的异常处理）
     echo && echo -e "${INFO} Start Compile Firmware With ${THREADS} Threads"
     echo && echo -e "${INFO} Compile Tools"
-    make tools/compile -j${THREADS} || make tools/compile -j1 V=s
-    make target/compile -j${THREADS} || make target/compile -j1 V=s
+    make tools/compile -j${THREADS} || make tools/compile -j1 V=s || exit 1
+    make tools/install
+    make toolchain/compile -j${THREADS} || make toolchain/compile -j1 V=s || exit 1
+    make toolchain/install
+    make target/compile -j${THREADS} || make target/compile -j1 V=s || exit 1
     echo && echo -e "${INFO} Compile Packages"
     make diffconfig
-    make package/compile -j${THREADS} || make package/compile -j1 V=s
+    make package/compile -j${THREADS} || make package/compile -j1 V=s || exit 1
     make package/index
-    make package/install -j${THREADS} || make package/install -j1 V=s
+    make package/install -j${THREADS} || make package/install -j1 V=s || exit 1
     echo && echo -e "${INFO} Compile Target Firmware"
-    make target/install -j${THREADS} || make target/install -j1 V=s
+    make target/install -j${THREADS} || make target/install -j1 V=s || exit 1
     make checksum
     if [ ! -e ${LEDE_DIR}/bin/targets/**/**/sha256sums ]; then
         # Clean target Firmware
