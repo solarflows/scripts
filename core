@@ -63,6 +63,9 @@ UPDATE_LEDE() {
 UPDATE_FEEDS() {
     # 执行openwrt固件自带的升级脚本
     $(pwd)/scripts/feeds update -a
+    rm -rf feeds/packages/libs/qt*
+    rm -rf feeds/packages/libs/libtorrent-rasterbar
+    rm -rf feeds/packages/net/qB*
     # 检索安装所有已有插件到编译环境
     $(pwd)/scripts/feeds install -a
     CHECK_STATUS
