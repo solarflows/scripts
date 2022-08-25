@@ -63,6 +63,11 @@ UPDATE_LEDE() {
 UPDATE_FEEDS() {
     # 执行openwrt固件自带的升级脚本
     $(pwd)/scripts/feeds update -a
+    # remove unneed
+    rm -rf feeds/packages/libs/{qtbase,qttools}
+    rm -rf feeds/packages/net/{qBittorrent,qBittorrent-static}
+    rm -rf feeds/luci/applications/luci-app-qbittorrent
+    rm -rf package/lean/luci-app-qbittorrent-simple
     # 检索安装所有已有插件到编译环境
     $(pwd)/scripts/feeds install -a
     CHECK_STATUS
