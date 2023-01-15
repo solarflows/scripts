@@ -12,7 +12,7 @@ LEDE_DIR=$(pwd)
 # ${CONF} 配置文件绝对地址
 CONF=$(pwd)/.config
 # 标准配置文件大小
-STD_SIZE=$((1024*30))
+STD_SIZE=$((1024*100))
 # 编译线程数
 THREADS=$(($(nproc) + 1))
 # 开始时间
