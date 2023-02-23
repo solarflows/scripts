@@ -11,9 +11,16 @@ CHECK_CORE_FILE() {
     fi
 }
 
+CHECK_CORE_FILE
+
+echo && echo -e "${INFO} Start Update scrtpts"
+
 git -C ${SCRIPT_DIR} pull
 
 CHECK_CORE_FILE
+
 UPDATE_LEDE
+
 UPDATE_FEEDS
+
 exit 0
