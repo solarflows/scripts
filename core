@@ -83,7 +83,7 @@ COMFILE_FIRMWARE() {
     # 判断配置文件文件大小与存在性
     if [ ! -e ${CONF} ] || test ${CONF_SIZE} -le ${STD_SIZE}; then
         echo && echo -e "${INFO} conf file < std size start defconfig"
-        rm -rf ${LEDE_DIR}/tmp
+        # rm -rf ${LEDE_DIR}/tmp
         make defconfig
     elif test ${CONF_SIZE} -ge ${STD_SIZE}; then
         echo && echo -e "${INFO} conf file > std size start defconfig"
