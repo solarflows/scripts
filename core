@@ -14,7 +14,7 @@ CONF=$(pwd)/.config
 # 标准配置文件大小
 STD_SIZE=$((1024*100))
 # 编译线程数
-THREADS=$(($(nproc) + 1))
+THREADS=$(nproc)
 # 开始时间
 STARTTIME=`date +"%Y-%m-%d %H:%M:%S"`
 # 字体颜色设置
@@ -90,7 +90,7 @@ COMFILE_FIRMWARE() {
     fi
     # 执行下载依赖包
     echo && echo -e "${INFO} Download Files"
-    make download -j${THREADS}
+    make download -j${THREADS} || make download V=sc
     if [ -e ${LEDE_DIR}/bin ]; then
     #     # 删除已编译的文件
     #     # tree ${LEDE_DIR}/bin/targets/*/*
